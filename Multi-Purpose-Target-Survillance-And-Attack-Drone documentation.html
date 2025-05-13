@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS-7 VECTOR Report</title>
+    <style>
+        :root {
+            --primary-color: #1a73e8;
+            --secondary-color: #f1f3f4;
+            --text-color: #202124;
+            --background-color: #ffffff;
+            --card-bg: #f8f9fa;
+            --hover-color: #e8f0fe;
+            --border-color: #dadce0;
+            --accent-color: #5f6368;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        [data-theme="dark"] {
+            --primary-color: #8ab4f8;
+            --secondary-color: #292a2d;
+            --text-color: #e8eaed;
+            --background-color: #202124;
+            --card-bg: #292a2d;
+            --hover-color: #3c4043;
+            --border-color: #5f6368;
+            --accent-color: #9aa0a6;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            transition: all 0.3s ease;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background-color: var(--card-bg);
+            border-right: 1px solid var(--border-color);
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar h2 {
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .nav-links {
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-bottom: 10px;
+        }
+        
+        .nav-links a {
+            display: block;
+            padding: 10px;
+            color: var(--text-color);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background-color: var(--hover-color);
+            color: var(--primary-color);
+        }
+        
+        .content {
+            flex: 1;
+            padding: 30px;
+            padding-bottom: 60px;
+        }
+        
+        .section {
+            display: none;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        
+        .section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin: 30px 0 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            font-size: 1.3rem;
+            margin: 20px 0 10px;
+            color: var(--accent-color);
+        }
+        
+        p, ul, ol {
+            margin-bottom: 15px;
+        }
+        
+        ul, ol {
+            padding-left: 20px;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            border-top: 3px solid var(--primary-color);
+        }
+        
+        .stat-card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        
+        .stat-card p {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .stat-card small {
+            color: var(--accent-color);
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .search-box {
+            position: relative;
+            width: 300px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+        
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .image-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .image-container img {
+            max-height: 300px;
+            box-shadow: var(--shadow);
+        }
+        
+        .caption {
+            color: var(--accent-color);
+            font-style: italic;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .info-box {
+            background-color: rgba(26, 115, 232, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .timeline {
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: var(--border-color);
+            top: 0;
+            bottom: 0;
+            left: 20px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 50px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            left: 13px;
+            top: 5px;
+        }
+        
+        .timeline-date {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .compare-table th, .compare-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .compare-table th {
+            background-color: var(--card-bg);
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .compare-table tr:nth-child(even) {
+            background-color: var(--card-bg);
+        }
+        
+        .expand-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .expand-content {
+            display: none;
+            padding: 15px;
+            background-color: var(--card-bg);
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-box {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>NEXUS-7 VECTOR Report</h2>
+            <ul class="nav-links">
+                <li><a href="#overview" class="nav-link active">Overview</a></li>
+                <li><a href="#specifications" class="nav-link">Technical Specifications</a></li>
+                <li><a href="#development" class="nav-link">Development History</a></li>
+                <li><a href="#capabilities" class="nav-link">Capabilities</a></li>
+                <li><a href="#comparison" class="nav-link">Comparison</a></li>
+                <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                <li><a href="#cost" class="navlink">Cost</a></li>
+            </ul>
+            
+            <div style="margin-top: 20px;">
+                <button class="theme-toggle" id="themeToggle">Toggle Dark Mode</button>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="header">
+                <h1>NEXUS-7 VECTOR Report</h1>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search report...">
+                </div>
+            </div>
+            
+            <div id="overview" class="section active">
+                <h2>NEXUS-7 VECTOR Overview</h2>
+                <div class="card">
+                    <p>The NEXUS-7 VECTOR (also known as MPTSAD) is a short-range -> air-air,air-surface,surface-air launched survillance, attack drone developed by Makespace at JECRC University. It is a conventionally armed surface-strike weapon designed to neutralize high-value stationary/slow moving targets such as cars and key infrastructure for terrorist activities.</p>                 
+                    <div class="image-container">
+                        <img src="/api/placeholder/600/350" alt="NEXUS-7 VECTOR">
+                        <div class="caption">NEXUS-7 VECTOR Drone being printed on 3D-printer</div>
+                    </div>
+                    
+                    <p>Initially developed as a leisure project, the NEXUS-7 VECTOR has been operational since 2025 and has seen no deployment conflicts till now. Its servillance features and attack capabilities make it an essential element of deep strike operations for multiple armed forces.</p>
+                    
+                    <div class="info-box">
+                        <p><strong>Quick Facts:</strong> The NEXUS-7 VECTOR/MPTPAD is named differently depending on Technicality and Use. MPTSAD stands for Multi-Purpose-Target-Survillance-And-Attack-Drone.</p>
+                    </div>
+                </div>
+                
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <h3>Range</h3>
+                        <p>30+ km</p>
+                        <small>Operational range</small>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Speed</h3>
+                        <p>34+ kmph</p>
+                        <small>Top speed</small>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Weight</h3>
+                        <p>2.3 kg</p>
+                        <small>Total drone weight</small>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Warhead</h3>
+                        <p>1.5 kg</p>
+                        <small>Embedded payload</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="specifications" class="section">
+                <h2>Technical Specifications</h2>
+                
+                <div class="card">
+                    <h3>Physical Characteristics</h3>
+                    <ul>
+                        <li><strong>Length:</strong> 44 centimeters</li>
+                        <li><strong>Diameter:</strong>Approximately 21 centimeters</li>
+                        <li><strong>Wingspan:</strong> 1 foot</li>
+                        <li><strong>Launch Weight:</strong> Approximately 2.5 kgs</li>
+                        <li><strong>Warhead Weight:</strong> 1.5 kg Embedded payload</li>
+                    </ul>
+                    
+                    <h3>Performance</h3>
+                    <ul>
+                        <li><strong>Range:</strong> Over 30 km (Un-tested), reported to be potentially lower</li>
+                        <li><strong>Speed:</strong> 34+ kmph</li>
+                        <li><strong>Cruise Altitude:</strong> 1-1.3 kilometers (Un-tested)</li>
+                    </ul>
+                    
+                    <h3>Guidance System</h3>
+                    <p>The NEXUS-7 VECTOR employs a navigation and targeting system that includes:</p>
+                    <ul>                        
+                        <li>GPS satellite guidance</li>                     
+                        <li>Infrared seeker for terminal guidance(If approved by the board)</li>
+                    </ul>
+                    
+                    <h3>Propulsion</h3>
+                    <p>The drone is powered by a BLDC motor, providing efficient propulsion for short-range flights:</p>
+                    <ul>
+                        <li>1800 kv BLDC electric motor </li>
+                        <li>Thrust: Approximately 3.1 kN</li>
+                    </ul>
+                    
+                    <h3>Embedded payload</h3>
+                    <p>The embedded payload is a single-stage explosive system designed to immobilze or kill targets:</p>
+                    <ul>                      
+                        <li>Explode on impact capabilitiy</li>
+                        <li>Delayed detonation capability</li>
+                    </ul>
+                
+                    <button class="expand-btn" data-target="tech-details">Show Advanced Technical Details</button>
+                    <div id="tech-details" class="expand-content">
+                        <h3>Advanced Technical Features</h3>
+                        <ul>
+                            <li><strong>Electronic Countermeasures:</strong> Low radar cross-section(To be tested by Indian air-force), radar-absorbent materials(At phase-2 development), and electronic jamming capabilities(At phase-2 development)</li>
+                            <li><strong>Mission Planning System:</strong> Sophisticated pre-launch mission planning with multiple waypoints and contingency routing</li>
+                            <li><strong>Launch Envelope:</strong> Capable of being released from multiple altitudes and low-speeds, providing flexibility in deployment</li>
+                            <li><strong>Flight Profile:</strong> Uses a combination of mid-altitude cruise and terrain-following flight in the survillance phase</li>
+                            <li><strong>Target Recognition:</strong> Autonomous target matching against a pre-loaded database using infrared imaging(At phase-2 development)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="development" class="section">
+                <h2>Development History</h2>
+                
+                <div class="card">
+                    <p>The NEXUS-7 VECTOR/MPTSAD program began as a leisure project to develop a standoff, short-range precision strike capability. Its development was driven by lessons learned from the Russsia-Ukraine War, which highlighted the need for precision drone strikes against stationary and high-value targets without risking aircraft and crew.</p>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">April-2025</div>
+                            <p>Development program initiated by the students at Makespace in JECRC University.</p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-date">May-2025</div>
+                            <p>Fisrt 3D model printed on CR-X. along with positioning systems.</p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-date">May-2025</div>
+                            <p>Major design and testing phase. aerodynamic modeling refined the airframe design by testing it in softwares</p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-date">May-2025</div>
+                            <p>First successful test flights conducted at JECRC University.</p>
+                        </div>    
+                      </div>
+                    
+                    <h3>Key Developmental Challenges</h3>
+                    <p>Several technical challenges were overcome during the development of the NEXUS-7 VECTOR:</p>
+                    <ul>
+                        <li>Creating the structure of the drone</li>
+                        <li>Implementing accurate navigation systems that could function without GPS if necessary</li>
+                        <li>Integration with multiple platforms from different manufacturers</li>
+                        <li>Ensuring reliability in various climatic and operational conditions</li>
+                        <li>Low budget made it quite impossible yet exciting to make.<li>
+                        <li>using infrared camera to transmite the frames onto the reciver.<li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div id="capabilities" class="section">
+                <h2>Operational Capabilities</h2>
+                
+                <div class="card">
+                    <h3>Strategic Role</h3>
+                    <p>The NEXUS-7 VECTOR/MPTSAD is designed as a strategic weapon for inteligence and neutralizing high-value, well-defended targets without placing aircraft and crews at excessive risk. Its primary roles include:</p>
+                    <ul>
+                        <li>Destruction of command and control centers of enemies</li>
+                        <li>Neutralization of air defense systems</li>
+                        <li>Targeting of critical infrastructure (hide-outs, communications nodes)</li>
+                        <li>Precision strikes against militant installations</li>
+                        <li>Strategic interdiction of supply lines and logistics hubs</li>
+                    </ul>
+                    
+                    <h3>Navigation and Targeting</h3>
+                    <p>NEXUS-7 VECTOR employs a sophisticated multi-mode navigation system:</p>
+                    <ul>
+                        <li><strong>Mid-course navigation:</strong> Combination of INS(To be added) and GPS for waypoint navigation</li>
+                        <li><strong>Terminal guidance:</strong> Infrared seeker with automatic target recognition capability (To be added)</li>
+                        <li><strong>Target verification:</strong> Compares target with stored images to ensure correct identification (At phase-2 development)</li>
+                    </ul>
+                    
+                    <h3>Attack Profiles</h3>
+                    <p>The drone can execute several attack profiles depending on the target and mission requirements:</p>
+                    <ul>
+                        <li><strong>Direct attack:</strong> Approaches target directly from optimal angle</li>
+                        <li><strong>Pop-up maneuver:</strong> Climbs shortly before impact to achieve optimal penetration angle</li>
+                        <li><strong>Indirect approach:</strong> Approaches from unexpected direction to avoid defenses</li>
+                        <li><strong>Coordinated multi-drone strikes:</strong> Several drones can be programmed to arrive simultaneously from different directions</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div id="comparison" class="section">
+                <h2>Comparative Analysis</h2>
+                
+                <div class="card">
+                    <h3>NEXUS-7 VECTOR vs. Similar Systems</h3>
+                    <p>This section compares the NEXUS-7 VECTOR/MPTSAD with similar short-range attack drones in service by the indian armed forces.</p>
+                    
+                    <table class="compare-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>NEXUS-7 VECTOR/MPTSAD</th>
+                                <th>1450</th>
+                                <th>1451</th>
+                                <th>1452</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Country of Origin</td>
+                                <td>India</td>
+                                <td>NA</td>
+                                <td>NA</td>
+                                <td>NA</td>
+                            </tr>
+                            <tr>
+                                <td>Range</td>
+                                <td>30+ km</td>
+                                <td>NA km</td>
+                                <td> NA km</td>
+                                <td>NA km</td>
+                            </tr>
+                            <tr>
+                                <td>Warhead Weight</td>
+                                <td>1.2 kg (Embedded)</td>
+                                <td>NA</td>
+                                <td>NA</td>
+                                <td>NA</td>
+                            </tr>
+                            <tr>
+                                <td>Speed</td>
+                                <td>34+ KMPH</td>
+                                <td>NA</td>
+                                <td>NA</td>
+                                <td>NA</td>
+                            </tr>
+                            <tr>
+                                <td>Launch Platform</td>
+                                <td>Tank,ground units,hand,slow moving drones</td>
+                                <td>NA</td>
+                                <td>NA</td>
+                                <td>NA</td>
+                            </tr>
+                            <tr>
+                                <td>Guidance</td>
+                                <td>INS/GPS/IR</td>
+                                <td>NA</td>
+                                <td>NA</td>
+                                <td>NA</td>
+                            </tr>
+                            <tr>
+                                <td>In Service Since</td>
+                                <td>NA</td>
+                                <td>NA</td>
+                                <td>NA</td>
+                                <td>NA</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h3>Advantages and Limitations</h3>
+                    
+                    <h4>Assumed advantages of NEXUS-7 VECTOR/MPTSAD:</h4>
+                    <ul>
+                        <li>Excellent stealth characteristics compared to many competitors</li>
+                        <li>Sophisticated target recognition capabilities</li>
+                        <li>Integrated with a wide variety of paltforms</li>
+                        <li>cost effective</li>
+                    </ul>
+                    
+                    <h4>Limitations compared to competitors:</h4>
+                    <ul>
+                        <li>Short range </li>
+                        <li>Cannot be launched by fast moving aircraft platforms as well as from sea(no ship or submarine capability)</li>
+                        <li>Limited payload option (embedded)</li>
+                    </ul>
+                    
+                    <button class="expand-btn" data-target="future-developments">Show Future Development Potential</button>
+                    <div id="future-developments" class="expand-content">
+                        <h3>Potential Future Enhancements</h3>
+                        <p>Based on defense industry trends, several potential enhancements could be implemented in future NEXUS-7 VECTOR variants:</p>
+                        <ul>
+                            <li><strong>Extended Range:</strong> Increased range through improved motor and aerodynamics</li>
+                            <li><strong>Network Integration:</strong> Two-way data links allowing for in-flight updates and retargeting</li>
+                            <li><strong>Multi-Mode Seekers:</strong> Addition of millimeter-wave radar or multi-spectral imaging capabilities</li>
+                            <li><strong>Improved Electronic Warfare:</strong> Enhanced countermeasures against advanced air defense systems</li>
+                            <li> <strong>Improved speed</strong> Increased speed and payload capacity</li>
+                            <li><strong>Integration with Unmanned Platforms:</strong> Adaptation for launch from UCAV platforms</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="gallery" class="section">
+                <h2>Visual Gallery</h2>
+                
+                <div class="card">
+                    <div class="image-container">
+                        <img src="/api/placeholder/600/350" alt="NEXUS-7 VECTOR on Hexa-copter">
+                        <div class="caption">NEXUS-7 VECTOR drone mounted under the frame of a Hexa-copter</div>
+                    </div>
+                    
+                    <div class="image-container">
+                        <img src="/api/placeholder/600/350" alt="NEXUS-7 VECTOR 3D design">
+                        <div class="caption">showcasing the design of the NEXUS-7 VECTOR drone</div>
+                    </div>
+                    
+                    <div class="image-container">
+                        <img src="/api/placeholder/600/350" alt="NEXUS-7 VECTOR Manufacturing">
+                        <div class="caption">NEXUS-7 VECTOR drone during assembly at Makerspace in JECRC University</div>
+                    </div>
+                    
+                    <div class="image-container">
+                        <img src="/api/placeholder/600/350" alt="NEXUS-7 VECTOR First-Launch">
+                        <div class="caption">NEXUS-7 VECTOR launch sequence from a Hexa-copter</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+            
+            // Navigation click event
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Get the target section id
+                    const targetId = this.getAttribute('href').substring(1);
+                    
+                    // Remove active class from all links and sections
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    sections.forEach(section => section.classList.remove('active'));
+                    
+                    // Add active class to clicked link and target section
+                    this.classList.add('active');
+                    document.getElementById(targetId).classList.add('active');
+                    
+                    // Scroll to top of section (for mobile)
+                    if (window.innerWidth < 768) {
+                        window.scrollTo(0, 0);
+                    }
+                });
+            });
+            
+            // Theme toggle functionality
+            const themeToggle = document.getElementById('themeToggle');
+            themeToggle.addEventListener('click', function() {
+                document.body.setAttribute('data-theme', 
+                    document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+            });
+            
+            // Set initial theme based on user preference
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.body.setAttribute('data-theme', 'dark');
+            }
+            
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('keyup', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                if (searchTerm.length < 2) return;
+                
+                // Simple content search
+                let foundInSection = null;
+                
+                sections.forEach(section => {
+                    const sectionContent = section.textContent.toLowerCase();
+                    if (sectionContent.includes(searchTerm)) {
+                        if (!foundInSection) {
+                            foundInSection = section.id;
+                        }
+                    }
+                });
+                
+                // If found, activate that section
+                if (foundInSection) {
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    sections.forEach(section => section.classList.remove('active'));
+                    
+                    document.querySelector(`a[href="#${foundInSection}"]`).classList.add('active');
+                    document.getElementById(foundInSection).classList.add('active');
+                }
+            });
+            
+            // Expandable content functionality
+            const expandButtons = document.querySelectorAll('.expand-btn');
+            expandButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetContent = document.getElementById(targetId);
+                    
+                    if (targetContent.style.display === 'block') {
+                        targetContent.style.display = 'none';
+                        this.textContent = this.textContent.replace('Hide', 'Show');
+                    } else {
+                        targetContent.style.display = 'block';
+                        this.textContent = this.textContent.replace('Show', 'Hide');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
