@@ -36,18 +36,24 @@
         }
         
         body {
-            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--background-color);
-            transition: all 0.3s ease;
+        font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--background-color);
+        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5Yae3LZj8A4AZrEEZds-Y3tMGiAcvcJghOw&s');
+        background-repeat: no-repeat;
+        background-size: cover; /* Ensures the image covers the entire background */
+        background-position: center; /* Centers the image */
+        background-attachment: fixed; /* Keeps the image fixed during scrolling */
+        transition: all 0.3s ease;
+   
         }
         
         .container {
             display: flex;
             min-height: 100vh;
         }
-        
+
         .sidebar {
             width: 280px;
             background-color: var(--card-bg);
@@ -298,6 +304,27 @@
             background-color: var(--card-bg);
         }
         
+        .cost-table{
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .cost-table th, .cost-table td { padding: 12px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cost-table th{
+            background-color: var(--card-bg);
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .cost-table tr:nth-child(even){
+             background-color: var(--card-bg);
+        }
+
         .expand-btn {
             background-color: var(--primary-color);
             color: white;
@@ -329,7 +356,7 @@
                 border-right: none;
                 border-bottom: 1px solid var(--border-color);
             }
-            
+             
             .stats-container {
                 grid-template-columns: 1fr;
             }
@@ -342,6 +369,7 @@
     </style>
 </head>
 <body>
+    
     <div class="container">
         <div class="sidebar">
             <h2>NEXUS-7 VECTOR Report</h2>
@@ -352,7 +380,7 @@
                 <li><a href="#capabilities" class="nav-link">Capabilities</a></li>
                 <li><a href="#comparison" class="nav-link">Comparison</a></li>
                 <li><a href="#gallery" class="nav-link">Gallery</a></li>
-                <li><a href="#cost" class="navlink">Cost</a></li>
+                <li><a href="#cost" class="nav-link">Cost</a></li>
             </ul>
             
             <div style="margin-top: 20px;">
@@ -380,7 +408,9 @@
                     <p>Initially developed as a leisure project, the NEXUS-7 VECTOR has been operational since 2025 and has seen no deployment conflicts till now. Its servillance features and attack capabilities make it an essential element of deep strike operations for multiple armed forces.</p>
                     
                     <div class="info-box">
-                        <p><strong>Quick Facts:</strong> The NEXUS-7 VECTOR/MPTPAD is named differently depending on Technicality and Use. MPTSAD stands for Multi-Purpose-Target-Survillance-And-Attack-Drone.</p>
+                        <p><strong>Quick Facts:</strong></p>
+                        <p>The NEXUS-7 VECTOR/MPTPAD is named differently depending on Technicality and Use. </p>
+                        <p>MPTSAD stands for Multi-Purpose-Target-Survillance-And-Attack-Drone.</p>
                     </div>
                 </div>
                 
@@ -498,8 +528,8 @@
                         <li>Implementing accurate navigation systems that could function without GPS if necessary</li>
                         <li>Integration with multiple platforms from different manufacturers</li>
                         <li>Ensuring reliability in various climatic and operational conditions</li>
-                        <li>Low budget made it quite impossible yet exciting to make.<li>
-                        <li>using infrared camera to transmite the frames onto the reciver.<li>
+                        <li>Low budget made it quite impossible yet exciting to make.</li>
+                        <li>using infrared camera to transmite the frames onto the reciver.</li>
                     </ul>
                 </div>
             </div>
@@ -544,65 +574,65 @@
                     <h3>NEXUS-7 VECTOR vs. Similar Systems</h3>
                     <p>This section compares the NEXUS-7 VECTOR/MPTSAD with similar short-range attack drones in service by the indian armed forces.</p>
                     
-                    <table class="compare-table">
+                     <table class="compare-table">
                         <thead>
                             <tr>
                                 <th>Feature</th>
                                 <th>NEXUS-7 VECTOR/MPTSAD</th>
-                                <th>1450</th>
-                                <th>1451</th>
-                                <th>1452</th>
+                                <th>Nagastra-1</th>
+                                <th>Kharga Kamikaze</th>
+                                <th>ALS-50 Loitering Munition</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>Country of Origin</td>
                                 <td>India</td>
-                                <td>NA</td>
-                                <td>NA</td>
-                                <td>NA</td>
+                                <td>India</td>
+                                <td>India</td>
+                                <td>India</td>
                             </tr>
                             <tr>
                                 <td>Range</td>
                                 <td>30+ km</td>
-                                <td>NA km</td>
-                                <td> NA km</td>
-                                <td>NA km</td>
+                                <td>15-30 km</td>
+                                <td> 1.5 km</td>
+                                <td>40+ km</td>
                             </tr>
                             <tr>
                                 <td>Warhead Weight</td>
                                 <td>1.2 kg (Embedded)</td>
-                                <td>NA</td>
-                                <td>NA</td>
-                                <td>NA</td>
+                                <td>1.5 kg (HE-FRAG)</td>
+                                <td>700 g (HE)</td>
+                                <td>4–5 kg modular high-explosive</td>
                             </tr>
                             <tr>
                                 <td>Speed</td>
                                 <td>34+ KMPH</td>
-                                <td>NA</td>
-                                <td>NA</td>
-                                <td>NA</td>
+                                <td>100 KMPH</td>
+                                <td>High subsonic (fast)</td>
+                                <td>100+ KMPH</td>
                             </tr>
                             <tr>
                                 <td>Launch Platform</td>
                                 <td>Tank,ground units,hand,slow moving drones</td>
-                                <td>NA</td>
-                                <td>NA</td>
-                                <td>NA</td>
+                                <td>Portable, canister-based tube launch</td>
+                                <td>Shoulder or rail launcher</td>
+                                <td>VTOL from land vehicles, ships, mobile pads</td>
                             </tr>
                             <tr>
                                 <td>Guidance</td>
                                 <td>INS/GPS/IR</td>
-                                <td>NA</td>
-                                <td>NA</td>
-                                <td>NA</td>
+                                <td>EO/IR/GPS</td>
+                                <td>EO/GPS/OG</td>
+                                <td>EO/IR/GPS/Man in loop</td>
                             </tr>
                             <tr>
                                 <td>In Service Since</td>
                                 <td>NA</td>
-                                <td>NA</td>
-                                <td>NA</td>
-                                <td>NA</td>
+                                <td>May 2024</td>
+                                <td>2025 (expected)</td>
+                                <td>2025 (expected)</td>
                             </tr>
                         </tbody>
                     </table>
@@ -648,6 +678,10 @@
                         <img src="/api/placeholder/600/350" alt="NEXUS-7 VECTOR on Hexa-copter">
                         <div class="caption">NEXUS-7 VECTOR drone mounted under the frame of a Hexa-copter</div>
                     </div>
+
+                    <div class="image-container">
+                        <img src="/api/placeholder/600/350" alt="NEXUS-7 VECTOR vs human">
+                        <div class="caption">NEXUS-7 VECTOR drone as compared to human size</div> 
                     
                     <div class="image-container">
                         <img src="/api/placeholder/600/350" alt="NEXUS-7 VECTOR 3D design">
@@ -664,6 +698,57 @@
                         <div class="caption">NEXUS-7 VECTOR launch sequence from a Hexa-copter</div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div id="cost" class="section">
+            <h2>Cost Analysis</h2>
+
+            <div class="card">
+                  <h3>Cost of NEXUS-7 VECTOR and it's accessories</h3>
+                  <p>This section provides with the cost of NEXUS-7 VECTOR and it's parts</p>
+                   <table class="compare-table">
+                      <thead>
+                         <th>S.no</th>
+                         <th>Item</th>
+                         <th>cost/unit</th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                            <td>1.</td>
+                            <td>NEXUS-7 VECTOR</td>
+                            <td>₹60,000</td>
+                        </tr>
+                        <tr>
+                            <td>2.</td>
+                            <td>Shoulder mount</td>
+                            <td>₹7,500</td>
+                        </tr>
+                        <tr>
+                            <td>3.</td>
+                            <td>Truck mount</td>
+                            <td>₹11,500</td>
+                        </tr>
+                        <tr>
+                            <td>4.</td>
+                            <td>Anti-radar coating</td>
+                            <td>₹65,000</td>
+                        </tr>
+                        <tr>
+                            <td>5.</td>
+                            <td>Coustomisation or coustomised parts</td>
+                            <td>over the company</td>
+                        </tr>
+                      </tbody>
+                   </table>
+
+                   <button class="expand-btn" data-target="cost-breakdown">Show cost breakdown</button>
+                   <div id="cost-breakdown" class="expand-content">
+                    <h3>Potential cost breakdown</h3>
+                    <p>so this will include all the cost</p>
+                    <ul>
+                        <li><strong>404:Not Found</strong></li>
+                    </ul>
+                   </div>
             </div>
         </div>
     </div>
